@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { SceneNames, SpriteKeys } from "./constants";
 import { Warrior } from "./game_objects/players/warrior";
+import { Knight } from "./game_objects/players/knight";
 
 export class GameScene extends Phaser.Scene {
 	constructor() {
@@ -17,6 +18,9 @@ export class GameScene extends Phaser.Scene {
 		this.load.image('ground', 'assets/backgrounds/_01_ground.png');
 		this.load.image('platform', 'assets/platform.png');
 		this.load.spritesheet(SpriteKeys.Warrior, 'assets/Warrior_Blue.png', { frameWidth: 192, frameHeight: 192});
+		this.load.spritesheet(SpriteKeys.Knight.Run, 'assets/knight/Run.png', { frameWidth: 128, frameHeight: 64});
+		this.load.spritesheet(SpriteKeys.Knight.Idle, 'assets/knight/Idle.png', { frameWidth: 128, frameHeight: 64});
+		this.load.spritesheet(SpriteKeys.Knight.Attack, 'assets/knight/Attacks.png', { frameWidth: 128, frameHeight: 64});
 	}
 
 	create() {
@@ -39,7 +43,7 @@ export class GameScene extends Phaser.Scene {
 
 		this.createPlatforms();
 
-		this.player = new Warrior(this, 300, 450);
+		this.player = new Knight(this, 300, 450);
 		
 		this.physics.add.collider(this.player, this.platforms);
 		this.physics.world.setBoundsCollision(false);
