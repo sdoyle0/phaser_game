@@ -17,7 +17,7 @@ export class BootScene extends Phaser.Scene {
 
 	update() {
 		if (this.cursors.space.isDown) {
-			this.scene.start(SceneNames.Play);
+			this.scene.start(SceneNames.DarkMountain);
 		}
 	}
 }

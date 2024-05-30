@@ -3,6 +3,7 @@ import Phaser from 'phaser'
 
 import { GameScene } from './public/game_scene';
 import { BootScene } from './public/boot_scene';
+import { DarkMountiainScene } from './public/dark_mountain_scene';
 
 var config = {
 	type: Phaser.AUTO,
@@ -15,7 +16,7 @@ var config = {
 			debug: false
 		}
 	},
-	scene: [GameScene]
+	scene: [BootScene, GameScene, DarkMountiainScene]
 };
 
 let game = new Phaser.Game(config);

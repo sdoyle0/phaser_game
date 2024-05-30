@@ -1,6 +1,7 @@
 export const SceneNames = {
 	Boot: 'bootGame',
-	Play: 'playGame'
+	Play: 'playGame',
+	DarkMountain: 'darkMountain'
 }
 
 export const SpriteKeys = {
