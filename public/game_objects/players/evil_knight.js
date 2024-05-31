@@ -23,6 +23,12 @@ export class EvilKnight extends Phaser.GameObjects.Sprite {
 		this.jumpVelocity = -400;
 	}
 
+	static preload(scene) {
+		scene.load.spritesheet(SpriteKeys.Evil_Knight.Walk, 'assets/enemies/evil_knight/Knight-Walk-Sheet.png', { frameWidth: 64, frameHeight: 64});
+		scene.load.spritesheet(SpriteKeys.Evil_Knight.Idle, 'assets/enemies/evil_knight/Knight-Idle-Sheet.png', { frameWidth: 64, frameHeight: 64});
+		scene.load.spritesheet(SpriteKeys.Evil_Knight.Attack, 'assets/enemies/evil_knight/Knight-Attack-Sheet.png', { frameWidth: 74, frameHeight: 74});
+	}
+
 	init() {
 		this.scene.anims.create({
 			key: 'evil_startidle',

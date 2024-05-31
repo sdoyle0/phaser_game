@@ -27,6 +27,12 @@ export class Knight extends Phaser.GameObjects.Sprite {
 		this.jumpVelocity = -400;
 	}
 
+	static preload(scene) {
+		scene.load.spritesheet(SpriteKeys.Knight.Walk, 'assets/knight/Walk.png', { frameWidth: 128, frameHeight: 64});
+		scene.load.spritesheet(SpriteKeys.Knight.Idle, 'assets/knight/Idle.png', { frameWidth: 128, frameHeight: 64});
+		scene.load.spritesheet(SpriteKeys.Knight.Attack, 'assets/knight/Attacks.png', { frameWidth: 128, frameHeight: 64});
+	}
+
 	init() {
 		this.scene.anims.create({
 			key: 'startidle',

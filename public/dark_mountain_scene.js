@@ -9,6 +9,7 @@ export class DarkMountiainScene extends Phaser.Scene {
 		this.player = null;
 	}
 	
+	#backgroundKey
 
 	preload() {
 		this.load.image('background', 'assets/backgrounds/dark_mountain/parallax-mountain-bg.png');
@@ -17,48 +18,41 @@ export class DarkMountiainScene extends Phaser.Scene {
 		this.load.image('trees_far', 'assets/backgrounds/dark_mountain/parallax-mountain-trees.png');
 		this.load.image('trees_near', 'assets/backgrounds/dark_mountain/parallax-mountain-foreground-trees.png');
 
-		this.load.spritesheet(SpriteKeys.Knight.Walk, 'assets/knight/Walk.png', { frameWidth: 128, frameHeight: 64});
-		this.load.spritesheet(SpriteKeys.Knight.Idle, 'assets/knight/Idle.png', { frameWidth: 128, frameHeight: 64});
-		this.load.spritesheet(SpriteKeys.Knight.Attack, 'assets/knight/Attacks.png', { frameWidth: 128, frameHeight: 64});
-
-		this.load.spritesheet(SpriteKeys.Evil_Knight.Walk, 'assets/enemies/evil_knight/Knight-Walk-Sheet.png', { frameWidth: 64, frameHeight: 64});
-		this.load.spritesheet(SpriteKeys.Evil_Knight.Idle, 'assets/enemies/evil_knight/Knight-Idle-Sheet.png', { frameWidth: 64, frameHeight: 64});
-		this.load.spritesheet(SpriteKeys.Evil_Knight.Attack, 'assets/enemies/evil_knight/Knight-Attack-Sheet.png', { frameWidth: 74, frameHeight: 74});
+		Knight.preload(this);
+		EvilKnight.preload(this);
 	}
 
 	create() {
+		const width = 800;
 		const height = 520;
-		this.add.tileSprite(0, 0, 0, 0, "background")
-				.setOrigin(0,0)
+		const setTileSpriteProps = (tileSprite) => {
+			tileSprite.setDisplayOrigin(0,0)
 				.setDisplaySize(800, height)
 				.setScrollFactor(0);
+		}
+
+		const background = this.add.tileSprite(0, 0, 0, 0, "background");
+		setTileSpriteProps(background);
+				
 		
 		this.mountains_far = this.add.tileSprite(0, 0, 0, 0, "mountains_far")
-				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, height)
-				.setScrollFactor(0);
+		setTileSpriteProps(this.mountains_far);
 
 		this.mountains_near = this.add.tileSprite(0, 0, 0, 0, "mountains_near")
-				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, height)
-				.setScrollFactor(0);
+		setTileSpriteProps(this.mountains_near);
 
 		this.trees_far = this.add.tileSprite(0, 0, 0, 0, "trees_far")
-				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, height)
-				.setScrollFactor(0);
+		setTileSpriteProps(this.trees_far);
 		
 		this.trees_near = this.add.tileSprite(0, 0, 0, 0, "trees_near")
-				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, height)
-				.setScrollFactor(0);
+		setTileSpriteProps(this.trees_near);
 
 		this.createPlatforms();
 
 		this.player = new Knight(this, 300, 450);		
 		this.physics.add.collider(this.player, this.platforms);		
 
-		this.enemy = new EvilKnight(this, 320, 450);
+		this.enemy = new EvilKnight(this, 450, 300);
 		this.physics.add.collider(this.enemy, this.platforms);
 
 		this.physics.world.setBoundsCollision(false);
@@ -78,21 +72,15 @@ export class DarkMountiainScene extends Phaser.Scene {
 	createPlatforms() {
 		this.platforms = this.physics.add.staticGroup();
 
-		const rect = new Phaser.GameObjects.Rectangle(this, 400, 568, 800000, 100, 0x333333);
-		this.add.existing(rect);
-		this.platforms.add(rect);
+		const addRect = (x, y, width, height) => {
+			const rect = new Phaser.GameObjects.Rectangle(this, x, y, width, height, 0x333333);
+			this.add.existing(rect);
+			this.platforms.add(rect);
+		};
 
-		const rect2 = new Phaser.GameObjects.Rectangle(this, 600, 400, 400, 32, 0x333333);
-		this.add.existing(rect2);
-		this.platforms.add(rect2);
-
-		const rect3 = new Phaser.GameObjects.Rectangle(this, 50, 250, 400, 32, 0x333333);
-		this.add.existing(rect3);
-		this.platforms.add(rect3);
-
-		const rect4 = new Phaser.GameObjects.Rectangle(this, 750, 220, 400, 32, 0x333333);
-		this.add.existing(rect4);
-		this.platforms.add(rect4);
-		
+		addRect(400, 568, 800000, 100);
+		addRect(600, 400, 400, 32);
+		addRect(50, 250, 400, 32);
+		addRect(750, 220, 400, 32);		
 	}
 }
