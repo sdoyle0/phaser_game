@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { SceneNames, SpriteKeys } from "./constants";
 import { Knight } from "./game_objects/players/knight";
+import { EvilKnight } from "./game_objects/players/evil_knight";
 
 export class DarkMountiainScene extends Phaser.Scene {
 	constructor() {
@@ -16,9 +17,13 @@ export class DarkMountiainScene extends Phaser.Scene {
 		this.load.image('trees_far', 'assets/backgrounds/dark_mountain/parallax-mountain-trees.png');
 		this.load.image('trees_near', 'assets/backgrounds/dark_mountain/parallax-mountain-foreground-trees.png');
 
-		this.load.spritesheet(SpriteKeys.Knight.Run, 'assets/knight/Run.png', { frameWidth: 128, frameHeight: 64});
+		this.load.spritesheet(SpriteKeys.Knight.Walk, 'assets/knight/Walk.png', { frameWidth: 128, frameHeight: 64});
 		this.load.spritesheet(SpriteKeys.Knight.Idle, 'assets/knight/Idle.png', { frameWidth: 128, frameHeight: 64});
 		this.load.spritesheet(SpriteKeys.Knight.Attack, 'assets/knight/Attacks.png', { frameWidth: 128, frameHeight: 64});
+
+		this.load.spritesheet(SpriteKeys.Evil_Knight.Walk, 'assets/enemies/evil_knight/Knight-Walk-Sheet.png', { frameWidth: 64, frameHeight: 64});
+		this.load.spritesheet(SpriteKeys.Evil_Knight.Idle, 'assets/enemies/evil_knight/Knight-Idle-Sheet.png', { frameWidth: 64, frameHeight: 64});
+		this.load.spritesheet(SpriteKeys.Evil_Knight.Attack, 'assets/enemies/evil_knight/Knight-Attack-Sheet.png', { frameWidth: 74, frameHeight: 74});
 	}
 
 	create() {
@@ -50,16 +55,19 @@ export class DarkMountiainScene extends Phaser.Scene {
 
 		this.createPlatforms();
 
-		this.player = new Knight(this, 300, 450);
-		
-		this.physics.add.collider(this.player, this.platforms);
-		this.physics.world.setBoundsCollision(false);
+		this.player = new Knight(this, 300, 450);		
+		this.physics.add.collider(this.player, this.platforms);		
 
+		this.enemy = new EvilKnight(this, 320, 450);
+		this.physics.add.collider(this.enemy, this.platforms);
+
+		this.physics.world.setBoundsCollision(false);
 		this.cameras.main.startFollow(this.player, true, 1, 0, 0, 150);
 	}
 
 	update() {
-		this.player.update();		
+		this.player.update();
+		this.enemy.update();
 
 		this.mountains_far.tilePositionX = this.cameras.main.scrollX * .2;
 		this.mountains_near.tilePositionX = this.cameras.main.scrollX * .5;

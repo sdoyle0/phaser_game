@@ -2,7 +2,7 @@ import { SpriteKeys } from "../../constants";
 
 export class Knight extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
-		super(scene, x, y, SpriteKeys.Knight.Run);
+		super(scene, x, y, SpriteKeys.Knight.Walk);
 		this.setOrigin(0.5);
 		this.scene.add.existing(this);
 		this.scene.physics.add.existing(this);
@@ -44,7 +44,7 @@ export class Knight extends Phaser.GameObjects.Sprite {
 
 		this.scene.anims.create({
 			key: 'walk',
-			frames: this.anims.generateFrameNumbers(SpriteKeys.Knight.Run, { start: 0, end: 7 }),
+			frames: this.anims.generateFrameNumbers(SpriteKeys.Knight.Walk, { start: 0, end: 7 }),
 			frameRate: 10,
 			repeat: -1
 		});

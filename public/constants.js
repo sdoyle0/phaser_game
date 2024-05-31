@@ -8,8 +8,13 @@ export const SpriteKeys = {
 	Dude: 'dude',
 	Warrior: 'warrior',
 	Knight: {
-		Run: 'knight_run',
+		Walk: 'knight_run',
 		Idle: 'knight_idle',
 		Attack: 'knight_attack'
+	},
+	Evil_Knight: {
+		Idle: "evil_knight_idle",
+		Walk: "evil_knight_walk",
+		Attack: "evil_knight_attack"
 	}
 }
