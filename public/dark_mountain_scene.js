@@ -22,29 +22,30 @@ export class DarkMountiainScene extends Phaser.Scene {
 	}
 
 	create() {
+		const height = 520;
 		this.add.tileSprite(0, 0, 0, 0, "background")
 				.setOrigin(0,0)
-				.setDisplaySize(800, 500)
+				.setDisplaySize(800, height)
 				.setScrollFactor(0);
 		
 		this.mountains_far = this.add.tileSprite(0, 0, 0, 0, "mountains_far")
 				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, 500)
+				.setDisplaySize(800, height)
 				.setScrollFactor(0);
 
 		this.mountains_near = this.add.tileSprite(0, 0, 0, 0, "mountains_near")
 				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, 500)
+				.setDisplaySize(800, height)
 				.setScrollFactor(0);
 
 		this.trees_far = this.add.tileSprite(0, 0, 0, 0, "trees_far")
 				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, 500)
+				.setDisplaySize(800, height)
 				.setScrollFactor(0);
 		
 		this.trees_near = this.add.tileSprite(0, 0, 0, 0, "trees_near")
 				.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, 500)
+				.setDisplaySize(800, height)
 				.setScrollFactor(0);
 
 		this.createPlatforms();

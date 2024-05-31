@@ -44,7 +44,7 @@ export class Knight extends Phaser.GameObjects.Sprite {
 
 		this.scene.anims.create({
 			key: 'walk',
-			frames: this.anims.generateFrameNumbers(SpriteKeys.Knight.Run, { start: 0, end: 8 }),
+			frames: this.anims.generateFrameNumbers(SpriteKeys.Knight.Run, { start: 0, end: 7 }),
 			frameRate: 10,
 			repeat: -1
 		});
