@@ -16,5 +16,6 @@ export const SpriteKeys = {
 		Idle: "evil_knight_idle",
 		Walk: "evil_knight_walk",
 		Attack: "evil_knight_attack"
-	}
+	},
+	Skull_Wolf: "skull_wolf"
 }

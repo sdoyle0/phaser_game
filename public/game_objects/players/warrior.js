@@ -109,9 +109,6 @@ export class Warrior extends Phaser.GameObjects.Sprite {
 	}
 
 	animationComplete(animation, frame) {
-		if (animation.key === "playerground") {
-			this.anims.play("playeridle", true);
-		}
 		if (animation.key === "attack") {
 			this.anims.play("playeridle", true);
 			this.attacking = false;

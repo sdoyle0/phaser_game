@@ -1,4 +1,5 @@
 import { SpriteKeys } from "../../constants";
+import { Hit } from "../events/hit";
 
 export class Knight extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
@@ -34,28 +35,28 @@ export class Knight extends Phaser.GameObjects.Sprite {
 	}
 
 	init() {
-		this.scene.anims.create({
+		this.anims.create({
 			key: 'startidle',
 			frames: [{ key: SpriteKeys.Knight.Idle, frame: 0 }],
 			frameRate: 3,
 			repeat: -1
 		});
 
-		this.scene.anims.create({
+		this.anims.create({
 			key: 'playeridle',
 			frames: [{ key: SpriteKeys.Knight.Idle, frame: 0 }],
 			frameRate: 3,
 			repeat: -1
 		});
 
-		this.scene.anims.create({
+		this.anims.create({
 			key: 'walk',
 			frames: this.anims.generateFrameNumbers(SpriteKeys.Knight.Walk, { start: 0, end: 7 }),
 			frameRate: 10,
 			repeat: -1
 		});
 
-		this.scene.anims.create({
+		this.anims.create({
 			key: 'attack',
 			frames: this.anims.generateFrameNumbers(SpriteKeys.Knight.Attack, { start: 0, end: 5 }),
 			frameRate: 10
@@ -107,17 +108,18 @@ export class Knight extends Phaser.GameObjects.Sprite {
 	attack() {
 		this.attacking = true;
 		this.anims.play("attack", true);
-		const offsetX = this.right ? 32 : -32;
+		const offsetX = this.right ? 48 : -48;
 		const size = this.mjolnir ? 128 : 32;
+		this.scene.hits.add(
+			new Hit(this.scene, this.x + offsetX, this.y, size, size)
+		);
 	}
 
 	animationComplete(animation, frame) {
-		if (animation.key === "playerground") {
-			this.anims.play("playeridle", true);
-		}
 		if (animation.key === "attack") {
-			this.anims.play("playeridle", true);
 			this.attacking = false;
 		}
+
+		this.anims.play("playeridle", true);
 	}
 }
