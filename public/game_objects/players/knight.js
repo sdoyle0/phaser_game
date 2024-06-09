@@ -69,7 +69,7 @@ export class Knight extends Phaser.GameObjects.Sprite {
 	update() {
 		if (this.jumping) {
 			if (this.body.velocity.y >= 0) {
-				this.body.setGravityY(150);
+				this.body.setGravityY(125);
 				this.falling = true;
 			}
 		}
@@ -77,7 +77,7 @@ export class Knight extends Phaser.GameObjects.Sprite {
 		if (Phaser.Input.Keyboard.JustDown(this.cursor.up) && this.body.blocked.down) {
 			this.attacking = false;
 			this.body.setVelocityY(this.jumpVelocity);
-			this.body.setGravityY(150);
+			this.body.setGravityY(125);
 			this.jumping = true;
 		} else if (this.cursor.right.isDown) {
 			if (this.body.blocked.down && !this.attacking) {

@@ -1,7 +1,6 @@
 import Phaser from "phaser";
-import { SceneNames, SpriteKeys } from "./constants";
+import { SceneNames } from "./constants";
 import { Knight } from "./game_objects/players/knight";
-import { EvilKnight } from "./game_objects/players/evil_knight";
 import { SkullWolf } from "./game_objects/enemies/skull_wolf";
 
 export class DarkMountiainScene extends Phaser.Scene {
@@ -18,9 +17,9 @@ export class DarkMountiainScene extends Phaser.Scene {
 		this.load.image('mountains_near', 'assets/backgrounds/dark_mountain/parallax-mountain-mountains.png');
 		this.load.image('trees_far', 'assets/backgrounds/dark_mountain/parallax-mountain-trees.png');
 		this.load.image('trees_near', 'assets/backgrounds/dark_mountain/parallax-mountain-foreground-trees.png');
+		this.load.image('ground_texture', 'assets/ground_texture.png');
 
 		Knight.preload(this);
-		EvilKnight.preload(this);
 		SkullWolf.preload(this);
 	}
 
@@ -29,13 +28,12 @@ export class DarkMountiainScene extends Phaser.Scene {
 		const height = 520;
 		const setTileSpriteProps = (tileSprite) => {
 			tileSprite.setDisplayOrigin(0, 0)
-				.setDisplaySize(800, height)
+				.setDisplaySize(width, height)
 				.setScrollFactor(0);
 		}
 
 		const background = this.add.tileSprite(0, 0, 0, 0, "background");
 		setTileSpriteProps(background);
-
 
 		this.mountains_far = this.add.tileSprite(0, 0, 0, 0, "mountains_far")
 		setTileSpriteProps(this.mountains_far);
@@ -54,18 +52,17 @@ export class DarkMountiainScene extends Phaser.Scene {
 		this.player = new Knight(this, 300, 450);
 		this.physics.add.collider(this.player, this.platforms);
 
-		this.enemy = new EvilKnight(this, 450, 300);
-		this.skullWolf = new SkullWolf(this, 450, 450);
+		this.skullWolf = new SkullWolf(this, 450, 300);
+		this.skullWolf2 = new SkullWolf(this, 450, 450);
 
 		this.foesGroup = this.add.group();
-		this.foesGroup.add(this.enemy);
 		this.foesGroup.add(this.skullWolf);
+		this.foesGroup.add(this.skullWolf2);
 		this.physics.add.collider(this.foesGroup, this.platforms);
 
 		this.physics.world.setBoundsCollision(false);
 		this.cameras.main.startFollow(this.player, true, 1, 0, 0, 150);
 
-		//Setup hits
 		this.hits = this.add.group();
 		this.physics.add.overlap(
 			this.hits,
@@ -84,8 +81,8 @@ export class DarkMountiainScene extends Phaser.Scene {
 
 	update() {
 		this.player.update();
-		this.enemy.update();
 		this.skullWolf.update();
+		this.skullWolf2.update();
 
 		this.mountains_far.tilePositionX = this.cameras.main.scrollX * .2;
 		this.mountains_near.tilePositionX = this.cameras.main.scrollX * .5;
@@ -94,17 +91,16 @@ export class DarkMountiainScene extends Phaser.Scene {
 	}
 
 	createPlatforms() {
-		this.platforms = this.physics.add.staticGroup();
+		this.platforms = this.physics.add.staticGroup();		
 
-		const addRect = (x, y, width, height) => {
-			const rect = new Phaser.GameObjects.Rectangle(this, x, y, width, height, 0x333333);
-			this.add.existing(rect);
-			this.platforms.add(rect);
+		const addPlatform = (x, y, width, height) => {
+			const platform = this.add.tileSprite(x, y, width, height, "ground_texture");
+			this.platforms.add(platform);
 		};
 
-		addRect(400, 568, 800000, 100);
-		addRect(600, 400, 400, 32);
-		addRect(50, 250, 400, 32);
-		addRect(750, 220, 400, 32);
+		addPlatform(0, 575, 8000, 48);
+		addPlatform(600, 400, 400, 32);
+		addPlatform(50, 250, 400, 32);
+		addPlatform(750, 220, 400, 32);
 	}
 }
